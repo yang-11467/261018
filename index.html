@@ -1,0 +1,2819 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>爆炸地震學與法醫地震學 | 梁文宗老師演講心得與知識圖譜</title>
+  <meta name="description" content="中央研究院地球科學研究所梁文宗研究員專題演講心得——爆炸地震學、核試爆辨識、TAIGER炸測實驗、多重潛水波與2014高雄氣爆規模反演。">
+  <meta name="author" content="林柏揚 (地生二 U11410015)">
+  
+  <!-- Google Fonts: Noto Sans TC, JetBrains Mono, Cinzel Decorative -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ==========================================================================
+       CSS STYLESHEET - EARTH & SEISMIC STRATA THEME (土石與地震波風格)
+       ========================================================================== */
+    :root {
+      /* Palette: Lithosphere, Strata & Seismic Signals */
+      --bg-deep: #0e0d0b;           /* 深層地核暗色 */
+      --bg-strata: #181512;         /* 岩石岩層深色 */
+      --bg-card: rgba(28, 25, 22, 0.88); /* 半透頁岩卡片底色 */
+      --bg-card-hover: rgba(38, 33, 29, 0.95);
+      --border-strata: #3d352e;     /* 地層縫隙線條 */
+      --border-glow: #e07a38;       /* 地震地熱微光 */
+      
+      --text-main: #f5f3ef;         /* 頁岩淡白主文字 */
+      --text-muted: #a89f91;        /* 風化岩土次文字 */
+      --text-highlight: #ffd280;    /* 砂岩金黃提亮 */
+
+      --p-wave: #38bdf8;            /* P波初至（壓縮波 - 冰河藍） */
+      --s-wave: #f59e0b;            /* S波剪切（剪切波 - 熔岩橙） */
+      --surface-wave: #ec4899;      /* 表面雷利波/洛夫波（粉紅紫） */
+      --blast-red: #ef4444;         /* 人為爆炸脈衝（警報緋紅） */
+      --earthquake-green: #10b981;  /* 天然地震走時（大地青翠） */
+      --seismic-accent: #f97316;    /* 核心地動琥珀金 */
+      
+      --font-sans: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-serif: 'Noto Serif TC', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-display: 'Cinzel', serif;
+      
+      --shadow-elevation: 0 10px 30px -5px rgba(0, 0, 0, 0.8), 0 0 15px rgba(234, 88, 12, 0.15);
+      --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+    }
+
+    /* 地層紋理與地震雜訊背景 */
+    body {
+      background-color: var(--bg-deep);
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(245, 158, 11, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(239, 68, 68, 0.04) 0%, transparent 45%),
+        linear-gradient(180deg, rgba(14, 13, 11, 0.98) 0%, rgba(24, 21, 18, 0.92) 50%, rgba(14, 13, 11, 0.98) 100%),
+        repeating-linear-gradient(45deg, rgba(61, 53, 46, 0.05) 0px, rgba(61, 53, 46, 0.05) 2px, transparent 2px, transparent 8px);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 捲動進度指示條 */
+    #reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--p-wave), var(--s-wave), var(--blast-red));
+      z-index: 10000;
+      width: 0%;
+      box-shadow: 0 0 10px rgba(249, 115, 22, 0.8);
+      transition: width 0.1s ease-out;
+    }
+
+    /* 頂部導航列 */
+    header.site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+      background: rgba(14, 13, 11, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-strata);
+      padding: 0.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition-smooth);
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .seismic-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #2a201a, #451a03);
+      border: 1px solid var(--border-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-highlight);
+      font-size: 1.2rem;
+      box-shadow: 0 0 12px rgba(234, 88, 12, 0.3);
+    }
+
+    .logo-text h1 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      background: linear-gradient(90deg, #fff, #ffedd5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo-text span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: block;
+      font-family: var(--font-mono);
+    }
+
+    nav.nav-links {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    nav.nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: var(--transition-smooth);
+      position: relative;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    nav.nav-links a:hover,
+    nav.nav-links a.active {
+      color: var(--text-highlight);
+      background: rgba(245, 158, 11, 0.1);
+    }
+
+    .audio-btn {
+      background: rgba(42, 32, 26, 0.8);
+      border: 1px solid var(--border-glow);
+      color: var(--text-highlight);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: var(--transition-smooth);
+    }
+
+    .audio-btn:hover {
+      background: var(--seismic-accent);
+      color: #000;
+      font-weight: 600;
+      box-shadow: 0 0 10px rgba(249, 115, 22, 0.6);
+    }
+
+    /* HERO 區塊：地震波視覺畫布與主題 */
+    section.hero-section {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 7rem 2rem 4rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* 地震波形互動 Canvas */
+    #seismic-hero-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0.45;
+      pointer-events: auto;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 1rem;
+      border-radius: 30px;
+      background: rgba(234, 88, 12, 0.15);
+      border: 1px solid rgba(234, 88, 12, 0.4);
+      color: var(--text-highlight);
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.5px;
+      box-shadow: 0 0 20px rgba(234, 88, 12, 0.2);
+    }
+
+    .hero-title {
+      font-size: 2.8rem;
+      font-family: var(--font-serif);
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 1.25rem;
+      letter-spacing: 1px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+      background: linear-gradient(180deg, #ffffff 20%, #e2d9cd 70%, #d4a373 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+
+    .meta-cards-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 0 auto 2.5rem;
+      max-width: 860px;
+    }
+
+    .meta-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strata);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      text-align: left;
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .meta-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--seismic-accent);
+    }
+
+    .meta-card .meta-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .meta-card .meta-val {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 0.25rem;
+    }
+
+    .meta-card .meta-sub {
+      font-size: 0.8rem;
+      color: var(--text-highlight);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #c2410c, #ea580c);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #ea580c, #f97316);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(234, 88, 12, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(42, 33, 27, 0.8);
+      border: 1px solid var(--border-strata);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(61, 53, 46, 0.9);
+      border-color: var(--text-highlight);
+      color: var(--text-highlight);
+      transform: translateY(-2px);
+    }
+
+    /* 地震波控制台提示浮窗 */
+    .seismograph-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      background: rgba(14, 13, 11, 0.8);
+      padding: 0.5rem 1.25rem;
+      border-radius: 30px;
+      border: 1px solid var(--border-strata);
+      display: inline-flex;
+    }
+
+    .wave-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .dot-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    /* 容器架構 */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    section.content-section {
+      padding: 5rem 0;
+      border-bottom: 1px solid rgba(61, 53, 46, 0.6);
+    }
+
+    .section-header {
+      margin-bottom: 3rem;
+      text-align: left;
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--seismic-accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 2.1rem;
+      font-family: var(--font-serif);
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      max-width: 880px;
+    }
+
+    /* 卡片與網格系統 */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 2rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strata);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+      transition: var(--transition-smooth);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(234, 88, 12, 0.4);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-elevation);
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      color: var(--seismic-accent);
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-highlight);
+      margin-bottom: 0.75rem;
+    }
+
+    /* 學生心得感想特殊專屬區塊 */
+    .reflection-banner {
+      background: linear-gradient(135deg, rgba(35, 27, 21, 0.95), rgba(20, 18, 15, 0.98));
+      border: 1px solid var(--border-glow);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 3.5rem;
+      position: relative;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7);
+    }
+
+    .reflection-quote-icon {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      font-size: 4rem;
+      color: rgba(234, 88, 12, 0.12);
+      font-family: var(--font-display);
+    }
+
+    .student-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: var(--text-highlight);
+      font-family: var(--font-mono);
+      margin-bottom: 1rem;
+    }
+
+    .reflection-body {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #eae5de;
+    }
+
+    .reflection-body p {
+      margin-bottom: 1rem;
+    }
+
+    .reflection-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .highlight-text {
+      color: var(--text-highlight);
+      font-weight: 600;
+    }
+
+    /* 互動儀表板與模擬器 (Interactive Simulators) */
+    .interactive-panel {
+      background: #141210;
+      border: 1px solid var(--border-strata);
+      border-radius: 14px;
+      padding: 2rem;
+      margin: 2.5rem 0;
+      position: relative;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-strata);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .panel-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-highlight);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .control-group {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .toggle-btn {
+      padding: 0.45rem 1rem;
+      background: rgba(42, 33, 27, 0.8);
+      border: 1px solid var(--border-strata);
+      border-radius: 6px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: var(--transition-smooth);
+    }
+
+    .toggle-btn.active {
+      background: var(--seismic-accent);
+      color: #000;
+      border-color: var(--seismic-accent);
+      box-shadow: 0 0 12px rgba(249, 115, 22, 0.5);
+    }
+
+    /* 模擬器畫布區域 */
+    .simulator-canvas-container {
+      width: 100%;
+      height: 280px;
+      background: #090807;
+      border: 1px solid #2d2621;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    canvas.sim-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .sim-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .stat-box {
+      background: rgba(28, 25, 22, 0.6);
+      border: 1px solid var(--border-strata);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+    }
+
+    .stat-val {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      margin: 0.25rem 0;
+      color: var(--text-main);
+    }
+
+    .stat-desc {
+      font-size: 0.78rem;
+      color: var(--text-highlight);
+    }
+
+    /* 比較表格 (核試 vs 地震) */
+    .comparison-table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      border: 1px solid var(--border-strata);
+    }
+
+    table.seismic-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    table.seismic-table th,
+    table.seismic-table td {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border-strata);
+    }
+
+    table.seismic-table th {
+      background: #1f1a16;
+      color: var(--text-highlight);
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    table.seismic-table tr:hover td {
+      background: rgba(45, 36, 30, 0.4);
+    }
+
+    /* 公式呈現卡片 */
+    .formula-badge {
+      background: #171411;
+      border-left: 4px solid var(--seismic-accent);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1.5rem 0;
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      color: #ffeedb;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+    }
+
+    .formula-badge strong {
+      color: var(--seismic-accent);
+    }
+
+    /* 計算器互動面板 (2014高雄氣爆 PGV 反演) */
+    .calculator-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (max-width: 868px) {
+      .calculator-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .input-control {
+      margin-bottom: 1.25rem;
+    }
+
+    .input-control label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      margin-bottom: 0.4rem;
+    }
+
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .range-slider {
+      flex: 1;
+      accent-color: var(--seismic-accent);
+    }
+
+    .num-display {
+      width: 80px;
+      background: #0d0c0a;
+      border: 1px solid var(--border-strata);
+      color: var(--text-highlight);
+      font-family: var(--font-mono);
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      text-align: right;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .calc-result-box {
+      background: linear-gradient(135deg, rgba(42, 24, 16, 0.9), rgba(24, 18, 14, 0.95));
+      border: 1px solid var(--border-glow);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .result-mag-number {
+      font-size: 3.5rem;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      color: #ffedd5;
+      text-shadow: 0 0 25px rgba(249, 115, 22, 0.6);
+      line-height: 1;
+      margin: 0.5rem 0;
+    }
+
+    /* 完整投影片圖庫與燈箱 (Gallery & Lightbox) */
+    .gallery-filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .filter-btn {
+      padding: 0.45rem 1rem;
+      border-radius: 30px;
+      background: rgba(35, 30, 26, 0.7);
+      border: 1px solid var(--border-strata);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--seismic-accent);
+      color: #000;
+      border-color: var(--seismic-accent);
+      font-weight: 700;
+      box-shadow: 0 0 10px rgba(249, 115, 22, 0.4);
+    }
+
+    .slides-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .slide-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strata);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide-item:hover {
+      border-color: var(--seismic-accent);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(234, 88, 12, 0.3);
+    }
+
+    .slide-img-box {
+      width: 100%;
+      height: 180px;
+      background: #000;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slide-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background-color: #080706;
+      transition: transform 0.4s ease;
+    }
+
+    .slide-item:hover .slide-img-box img {
+      transform: scale(1.06);
+    }
+
+    .slide-overlay-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      background: rgba(234, 88, 12, 0.85);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.2rem;
+      opacity: 0;
+      transition: var(--transition-smooth);
+    }
+
+    .slide-item:hover .slide-overlay-icon {
+      opacity: 1;
+    }
+
+    .slide-info {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .slide-tag {
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      color: var(--seismic-accent);
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .slide-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.4;
+      margin-bottom: 0.5rem;
+    }
+
+    .slide-filename {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* 燈箱視窗 (Lightbox Modal) */
+    .lightbox-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(6, 5, 4, 0.94);
+      backdrop-filter: blur(10px);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-content-box {
+      max-width: 1100px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(234, 88, 12, 0.2);
+      border: 1px solid var(--border-strata);
+    }
+
+    .lightbox-caption {
+      margin-top: 1rem;
+      text-align: center;
+      color: #f3efe6;
+      max-width: 800px;
+    }
+
+    .lightbox-caption h4 {
+      font-size: 1.2rem;
+      color: var(--text-highlight);
+      margin-bottom: 0.3rem;
+    }
+
+    .lightbox-caption p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .lightbox-close-btn {
+      position: absolute;
+      top: -2.5rem;
+      right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .lightbox-close-btn:hover {
+      color: var(--seismic-accent);
+      transform: scale(1.1);
+    }
+
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(30, 24, 20, 0.8);
+      border: 1px solid var(--border-strata);
+      color: #fff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .lightbox-nav-btn:hover {
+      background: var(--seismic-accent);
+      color: #000;
+    }
+
+    .lightbox-prev {
+      left: -4rem;
+    }
+
+    .lightbox-next {
+      right: -4rem;
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-prev { left: 0.5rem; }
+      .lightbox-next { right: 0.5rem; }
+      .lightbox-close-btn { top: -2.2rem; right: 0.5rem; }
+    }
+
+    /* 頁尾 */
+    footer.site-footer {
+      background: #090807;
+      border-top: 1px solid var(--border-strata);
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      position: relative;
+    }
+
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: var(--transition-smooth);
+    }
+
+    .footer-links a:hover {
+      color: var(--text-highlight);
+    }
+
+    .copyright {
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      margin-top: 2rem;
+      color: #665f56;
+    }
+
+    /* 浮動快捷回頂按鈕 */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(35, 27, 21, 0.9);
+      border: 1px solid var(--border-glow);
+      color: var(--text-highlight);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 900;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition-smooth);
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .back-to-top:hover {
+      background: var(--seismic-accent);
+      color: #000;
+      transform: translateY(-4px);
+    }
+
+    /* 響應式調整 */
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2rem; }
+      nav.nav-links { display: none; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .section-title { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 捲動進度指示條 -->
+  <div id="reading-progress"></div>
+
+  <!-- 頂部導航列 -->
+  <header class="site-header">
+    <a href="#" class="header-logo">
+      <div class="seismic-icon-box">
+        <i class="fa-solid fa-earth-americas"></i>
+      </div>
+      <div class="logo-text">
+        <h1>爆炸地震學與法醫地震學</h1>
+        <span>中研院地科所 梁文宗研究員 演講全集</span>
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#reflection"><i class="fa-solid fa-pen-nib"></i> 心得感想</a>
+      <a href="#forensic"><i class="fa-solid fa-magnifying-glass-location"></i> 法醫地震學</a>
+      <a href="#discrimination"><i class="fa-solid fa-radiation"></i> 核試 vs 地震</a>
+      <a href="#spectral-ratio"><i class="fa-solid fa-wave-square"></i> Pg/Lg頻譜比</a>
+      <a href="#diving-waves"><i class="fa-solid fa-water"></i> 多重潛水波</a>
+      <a href="#kaohsiung-case"><i class="fa-solid fa-fire-flame-curved"></i> 高雄氣爆鑑識</a>
+      <a href="#gallery"><i class="fa-regular fa-images"></i> 投影片圖庫</a>
+    </nav>
+
+    <button class="audio-btn" id="audio-toggle-btn" title="切換地震波音效模擬">
+      <i class="fa-solid fa-volume-high"></i> <span>震動音效</span>
+    </button>
+  </header>
+
+  <!-- HERO 視覺旗艦區 -->
+  <section class="hero-section" id="hero">
+    <!-- 背景動態地震波形畫布 -->
+    <canvas id="seismic-hero-canvas"></canvas>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-satellite-dish"></i> 地球物理通論 專題講座成果
+      </div>
+
+      <h1 class="hero-title">
+        爆炸地震學<br>與法醫地震學之科學前沿
+      </h1>
+
+      <p class="hero-subtitle">
+        從核子試爆檢測、地殼剪切斷層破裂，到臺灣西部平原多重潛水波與2014高雄氣爆規模反演——深入解析地下震波密碼與物理機制。
+      </p>
+
+      <!-- 關鍵元數據橫幅 -->
+      <div class="meta-cards-bar">
+        <div class="meta-card">
+          <div class="meta-label"><i class="fa-solid fa-chalkboard-user"></i> 主講專家</div>
+          <div class="meta-val">梁文宗 博士</div>
+          <div class="meta-sub">中央研究院 地球科學研究所 研究員</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label"><i class="fa-solid fa-graduation-cap"></i> 撰寫同學</div>
+          <div class="meta-val">林柏揚</div>
+          <div class="meta-sub">系級：地生二 ｜ 學號：U11410015</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label"><i class="fa-solid fa-microscope"></i> 核心科學領域</div>
+          <div class="meta-val">爆炸地震學 &amp; TAIGER</div>
+          <div class="meta-sub">全球禁核試監測、近地表爆炸衰減模型</div>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#reflection" class="btn btn-primary"><i class="fa-solid fa-book-open-reader"></i> 閱讀心得報告</a>
+        <a href="#interactive-simulator" class="btn btn-secondary"><i class="fa-solid fa-sliders"></i> 震波辨識模擬器</a>
+        <a href="#gallery" class="btn btn-secondary"><i class="fa-solid fa-images"></i> 投影片圖庫</a>
+        <a href="梁文宗老師演講心得.pdf" target="_blank" class="btn btn-secondary" style="border-color: rgba(239, 68, 68, 0.5);"><i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i> 原文 PDF 報告</a>
+      </div>
+
+      <div class="seismograph-controls">
+        <span><i class="fa-solid fa-chart-line"></i> 實時震波監視器：</span>
+        <div class="wave-legend-item">
+          <span class="dot-indicator" style="background: var(--p-wave);"></span> P波初動
+        </div>
+        <div class="wave-legend-item">
+          <span class="dot-indicator" style="background: var(--s-wave);"></span> S波剪切
+        </div>
+        <div class="wave-legend-item">
+          <span class="dot-indicator" style="background: var(--surface-wave);"></span> 雷利表面波
+        </div>
+        <div class="wave-legend-item">
+          <span class="dot-indicator" style="background: var(--blast-red);"></span> 爆炸高頻脈衝
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第一部分：心得感想 (林柏揚 同學撰寫完整心得) -->
+  <section class="content-section" id="reflection">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fa-solid fa-quote-left"></i> Section 01</div>
+        <h2 class="section-title">一、心得感想 (Learning Reflection)</h2>
+        <p class="section-desc">從傳統天然構造地震學拓展至異常人為事件，開拓對地球物理應用視野的全新啟發。</p>
+      </div>
+
+      <div class="reflection-banner">
+        <i class="fa-solid fa-quote-right reflection-quote-icon"></i>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.25rem;">
+          <div class="student-badge" style="margin-bottom: 0;">
+            <i class="fa-solid fa-user-check"></i> 系級：地生二 ｜ 學號：U11410015 ｜ 姓名：林柏揚
+          </div>
+          <a href="梁文宗老師演講心得.pdf" target="_blank" class="audio-btn" style="text-decoration: none; border-color: rgba(239, 68, 68, 0.4);">
+            <i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i> <span>檢視原始 PDF 報告</span>
+          </a>
+        </div>
+        
+        <div class="reflection-body">
+          <p>
+            在本次演講之前，我對地震學的理解主要停留在<strong>震波類型辨識</strong>以及<strong>推算地底構造</strong>等基礎層面；然而透過這場講座，徹底拓寬了我對地震學應用範疇的認知。
+          </p>
+          <p>
+            梁文宗老師從<strong>人為爆炸與異常事件</strong>等獨特視角切入，深入地展示了地震學的多元應用。其中最令我震撼的，在於<span class="highlight-text">如何精準區分人工爆破與天然地震的震波特徵</span>。原本以為這需要極其繁複的檢測程序，但在理解其背後的物理機制後，整體判讀邏輯變得清晰無比。
+          </p>
+          <p>
+            非常感謝老師安排這場精彩的演講，讓我對<strong>爆炸地震學 (Explosion Seismology)</strong> 這一領域有了更深入且系統性的認識，更深刻體會到地球物理學不僅能探索大自然的奧秘，更能在<strong>國際安全條約監督、反恐鑑識與重大災害調查</strong>中發揮不可或缺的關鍵力量。
+          </p>
+        </div>
+      </div>
+
+      <!-- 心得核心要點卡片 -->
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
+          <h3 class="card-title">視角的典範轉移</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">
+            超越以往「被動記錄天然板塊震動」的局限思維，轉向以地震儀作為全球法醫鑑識的千里眼，監控次聲波、地動速度與人為衝擊。
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3 class="card-title">物理機制的清晰化</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">
+            弄懂了為什麼爆炸全向膨脹使得所有測站初動 P 波一律向上、為什麼缺乏剪切力導致 S 波能量低微，理論推導取代死記硬背。
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3 class="card-title">科學與社會實踐</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">
+            從北韓歷次核試的國際條約查證，到臺灣 TAIGER 炸測與 2014 年高雄氣爆規模反演，展現地球科學在民生安全與防災鑑識的核心價值。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第二部分：法醫地震學與多元觀測視角 -->
+  <section class="content-section" id="forensic">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fa-solid fa-fingerprint"></i> Section 02</div>
+        <h2 class="section-title">二、法醫地震學 (Forensic Seismology) 範疇</h2>
+        <p class="section-desc">結合大氣次聲波、水下聲學傳感器與全球地震觀測網，精確鑑識地表與大氣中各類重大異常爆破事件。</p>
+      </div>
+
+      <div class="grid-2" style="margin-bottom: 2.5rem;">
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-diagram-project"></i> 綜合多維監測架構</h3>
+          <p style="color: var(--text-muted); margin-bottom: 1rem;">
+            全面禁止核試驗條約 (CTBT) 的國際監測系統 (IMS) 包含四大技術體系：
+          </p>
+          <ul style="padding-left: 1.25rem; color: #ddd; line-height: 1.9; font-size: 0.95rem;">
+            <li><strong style="color: var(--p-wave);">地震波 (Seismic waves)：</strong>利用體波 (P, S) 與表面波分析地層破裂或膨脹。</li>
+            <li><strong style="color: var(--blast-red);">紅外線次聲波 (Infrasound)：</strong>捕捉大氣層內爆炸、隕石墜落、火山爆發低頻聲波。</li>
+            <li><strong style="color: #34d399;">水下聲學感測 (Hydroacoustic)：</strong>利用海洋 SOFAR 波導通道捕捉海底爆破與潛艦異常。</li>
+            <li><strong style="color: var(--text-highlight);">衛星光學/SAR：</strong>偵測地表塌陷坑、熱輻射與大氣閃光。</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-file-shield"></i> 國際法醫地震學經典實例</h3>
+          <div style="display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.92rem;">
+            <div style="border-left: 3px solid var(--seismic-accent); padding-left: 0.75rem;">
+              <strong style="color: #fff;">1998 肯亞奈洛比美使館恐攻：</strong>
+              <span style="color: var(--text-muted);">全球測站精準錄得爆炸衝擊波與地表波形走時。</span>
+            </div>
+            <div style="border-left: 3px solid var(--p-wave); padding-left: 0.75rem;">
+              <strong style="color: #fff;">2000 北海俄羅斯 Kursk 核潛艇事故：</strong>
+              <span style="color: var(--text-muted);">水下地震儀錄下第一聲小型魚雷自爆與兩分多鐘後的巨大連鎖爆炸。</span>
+            </div>
+            <div style="border-left: 3px solid var(--s-wave); padding-left: 0.75rem;">
+              <strong style="color: #fff;">2000 美國新墨西哥州瓦斯管線爆裂案：</strong>
+              <span style="color: var(--text-muted);">藉由地震訊號精確推估破裂初動時間與炸裂衝擊能量。</span>
+            </div>
+            <div style="border-left: 3px solid var(--blast-red); padding-left: 0.75rem;">
+              <strong style="color: #fff;">2017 南韓浦項地熱廠誘發 M5.4 地震：</strong>
+              <span style="color: var(--text-muted);">透過震源深度與微震陣列，鑑識水力壓裂注水與活化未知斷層的因果關係。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 投影片圖解導引卡片 -->
+      <div class="grid-2">
+        <div class="slide-item" onclick="openLightbox('螢幕擷取畫面 2026-11-24 113813.png', '地球物理多重監測架構', 'UCRL 經典三維剖面：涵蓋火山、大氣爆炸、礦場爆破、意外事故、機器噪訊、地震斷層、核子試爆與水下聲學波導。')">
+          <div class="slide-img-box" style="height: 240px;">
+            <img src="螢幕擷取畫面 2026-11-24 113813.png" alt="多重監測架構">
+            <div class="slide-overlay-icon"><i class="fa-solid fa-expand"></i></div>
+          </div>
+          <div class="slide-info">
+            <div class="slide-tag">IMS 多重感測概念</div>
+            <div class="slide-title">地球大氣與地體異常事件多重監測模型</div>
+            <div class="slide-filename">螢幕擷取畫面 2026-11-24 113813.png</div>
+          </div>
+        </div>
+
+        <div class="slide-item" onclick="openLightbox('螢幕擷取畫面 2026-11-24 113854.png', '法醫地震學歷史經典實例', '包含肯亞美使館爆炸、庫斯克核潛艇、新墨西哥瓦斯管線爆炸及南韓浦項地熱誘發地震之斷層與震波解剖圖。')">
+          <div class="slide-img-box" style="height: 240px;">
+            <img src="螢幕擷取畫面 2026-11-24 113854.png" alt="法醫地震學實例">
+            <div class="slide-overlay-icon"><i class="fa-solid fa-expand"></i></div>
+          </div>
+          <div class="slide-info">
+            <div class="slide-tag">Forensic Seismology Cases</div>
+            <div class="slide-title">國際法醫地震學知名案例彙整</div>
+            <div class="slide-filename">螢幕擷取畫面 2026-11-24 113854.png</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第三部分：核試爆 vs 天然地震——震波特徵辨識 -->
+  <section class="content-section" id="discrimination">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fa-solid fa-scale-balanced"></i> Section 03</div>
+        <h2 class="section-title">三、核試爆與天然地震之震波特徵差異</h2>
+        <p class="section-desc">從剪切斷層錯動到全向均勻膨脹，藉由初動極性、P/S波震幅比、震源機制解與體波表面波規模比值建立精確物理判據。</p>
+      </div>
+
+      <!-- 核心差異對照表 -->
+      <div class="comparison-table-wrapper">
+        <table class="seismic-table">
+          <thead>
+            <tr>
+              <th>物理特徵維度</th>
+              <th>天然地震 (Natural Earthquake)</th>
+              <th>核試爆 / 人工爆破 (Nuclear / Blast)</th>
+              <th>物理機理解釋</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>震源破裂機制</strong></td>
+              <td>剪切斷層滑移 (Shear dislocation)；雙力偶 (Double Couple, DC)</td>
+              <td>全向均勻膨脹 (Isotropic Expansion)；體積膨脹源</td>
+              <td>爆炸瞬間向外均勻擠壓介質，無特定滑移平面。</td>
+            </tr>
+            <tr>
+              <td><strong>初動 P 波極性</strong></td>
+              <td>四象限分布（有推有拉，部分向上部分向下）</td>
+              <td><strong>全球各方位測站初動一律向上</strong> (Compressional)</td>
+              <td>全向膨脹使震波由震源向外推擠，第一波均為壓縮前進。</td>
+            </tr>
+            <tr>
+              <td><strong>P / S 波振幅比</strong></td>
+              <td>S 波振幅明顯強大，高於初至 P 波</td>
+              <td><strong>初動 P 波振幅極大且尖銳，S 波相對極其微弱</strong></td>
+              <td>固體剪切才能有效激發 S 波；爆炸純膨脹源主要激發縱波 P。</td>
+            </tr>
+            <tr>
+              <td><strong>規模比值 ($m_b$ vs $M_s$)</strong></td>
+              <td>表面波規模 $M_s$ 相對較高</td>
+              <td>體波規模 $m_b$ 偏高，<strong>$M_s$ 明顯偏低</strong> ($M_s < 1.25 m_b - 2.2$)</td>
+              <td>爆炸源尺寸小、歷時極短，激發長週期表面波效能極差。</td>
+            </tr>
+            <tr>
+              <td><strong>震源機制 Hudson 圖</strong></td>
+              <td>落在純雙力偶 (DC) 軸線上</td>
+              <td>偏離 DC 線，<strong>等向成分 (ISO) 高達 40% 以上</strong></td>
+              <td>Hudson 頂點對應純爆炸成分，北韓核試 ISO 達 42%。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 互動式模擬器：天然地震 vs 核試爆 震波即時動態比對 -->
+      <div class="interactive-panel" id="interactive-simulator">
+        <div class="panel-header">
+          <div class="panel-title">
+            <i class="fa-solid fa-microchip"></i> 互動模擬器：震波波形與震源特徵即時鑑識
+          </div>
+          <div class="control-group">
+            <button class="toggle-btn active" id="btn-mode-blast" onclick="setSimMode('blast')">
+              <i class="fa-solid fa-bomb"></i> 核試爆訊號模式
+            </button>
+            <button class="toggle-btn" id="btn-mode-quake" onclick="setSimMode('quake')">
+              <i class="fa-solid fa-volcano"></i> 天然地震訊號模式
+            </button>
+            <button class="audio-btn" onclick="playCurrentWaveAudio()">
+              <i class="fa-solid fa-circle-play"></i> 播放合成地震聲響
+            </button>
+          </div>
+        </div>
+
+        <div class="simulator-canvas-container">
+          <canvas id="sim-waveform-canvas" class="sim-canvas"></canvas>
+        </div>
+
+        <div class="sim-stats-grid">
+          <div class="stat-box">
+            <div class="stat-label">P 波初動方向</div>
+            <div class="stat-val" id="stat-p-motion" style="color: var(--p-wave);">100% 向上 (壓縮)</div>
+            <div class="stat-desc" id="stat-p-desc">全向球對稱膨脹</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">P / S 波振幅比值</div>
+            <div class="stat-val" id="stat-ps-ratio" style="color: var(--blast-red);">4.82 (P波極尖銳)</div>
+            <div class="stat-desc" id="stat-ps-desc">剪切 S 波激發受抑制</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">$m_b$ - $M_s$ 判別偏移</div>
+            <div class="stat-val" id="stat-mb-ms" style="color: var(--text-highlight);">+1.64</div>
+            <div class="stat-desc">顯著落入爆炸篩選區</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">等向膨脹分量 (ISO)</div>
+            <div class="stat-val" id="stat-iso" style="color: #38bdf8;">42% (非雙力偶)</div>
+            <div class="stat-desc">UC Berkeley 反演解</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 投影片圖庫精選 (7.jpg, 8.jpg, 12.jpg) -->
+      <div class="grid-3">
+        <div class="slide-item" onclick="openLightbox('7.jpg', '核試爆與天然地震的差異 - I', '包含 mb vs Ms 分布、區域 P/S 振幅比、深度及 Pg/Lg 頻譜分離度之系統性檢驗 (Kim, 2017)。')">
+          <div class="slide-img-box"><img src="7.jpg" alt="核試差異I"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 07</div>
+            <div class="slide-title">mb vs Ms 與 P/S 振幅比判定法</div>
+            <div class="slide-filename">7.jpg</div>
+          </div>
+        </div>
+
+        <div class="slide-item" onclick="openLightbox('8.jpg', '核試爆與天然地震的差異 - II', '2017/09/03 北韓 mb 6.3 (Mw 5.2) 核試之柏克萊大學震源機制解：42% ISO, 24% CLVD, 34% DC。')">
+          <div class="slide-img-box"><img src="8.jpg" alt="核試差異II"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 08</div>
+            <div class="slide-title">北韓核試 Hudson 震源機制反演圖</div>
+            <div class="slide-filename">8.jpg</div>
+          </div>
+        </div>
+
+        <div class="slide-item" onclick="openLightbox('12.jpg', '牡丹江 (MDJ) 測站北韓核試波形', '2006 至 2017 年北韓 6 次核試 (mb 4.3 至 6.3) 之波形對比，Pn, Pg 與雷利波振幅隨規模之倍增演變。')">
+          <div class="slide-img-box"><img src="12.jpg" alt="MDJ測站波形"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 12</div>
+            <div class="slide-title">牡丹江測站 6 次核試地震波形紀錄</div>
+            <div class="slide-filename">12.jpg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第四部分：Pg / Lg 頻譜比法 (Spectral Ratio Method) -->
+  <section class="content-section" id="spectral-ratio">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fa-solid fa-wave-square"></i> Section 04</div>
+        <h2 class="section-title">四、Pg / Lg 頻譜比法 (Spectral Ratio Method)</h2>
+        <p class="section-desc">地殼波導剪切波 Lg 與直達縱波 Pg 之頻譜能量比值，在高頻段 (> 2-4 Hz) 建立清晰的判別分群。</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-diagram-next"></i> Lg 波的物理波導效應</h3>
+          <p style="color: var(--text-muted); line-height: 1.8;">
+            <strong>Lg 波</strong>是在地殼內部多次全反射的剪切波 (Multiply reflected shear-wave in crustal waveguide)，被嚴格局限於<strong>地表與莫氏不連續面 (Moho)</strong> 之間傳播。
+          </p>
+          <div style="background: rgba(14, 13, 11, 0.7); border: 1px solid var(--border-strata); border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+            <p style="font-size: 0.9rem; color: #ffeedb; font-family: var(--font-mono); margin-bottom: 0.3rem;">
+              <i class="fa-solid fa-gauge-high" style="color: var(--p-wave);"></i> 平均地殼剪切速度：3.0 ~ 3.6 km/s
+            </p>
+            <p style="font-size: 0.9rem; color: #ffeedb; font-family: var(--font-mono);">
+              <i class="fa-solid fa-arrows-left-right" style="color: var(--s-wave);"></i> 典型區域觀測距離：100 ~ 2,000 km
+            </p>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.92rem;">
+            同區域距離內的 Pg 波則由爆炸直接激發。雖然兩者走時路徑相近，但激發源物理性質決定了兩者在高低頻的能量分配完全不同。
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-gears"></i> 標準計算與資料品管流程</h3>
+          <ol style="padding-left: 1.25rem; color: #ddd; line-height: 1.9; font-size: 0.95rem;">
+            <li><strong>框定時窗：</strong>在三分量波形中分別框出 Pg（約 25s 時段）與 Lg 波到達時段。</li>
+            <li><strong>子視窗重疊切片：</strong>切分成數個較短子視窗，以 <strong>50% 重疊 (Overlap)</strong> 逐步計算。</li>
+            <li><strong>快速傅立葉轉換 (FFT)：</strong>轉換至頻率域並疊加平均以降低局部雜訊。</li>
+            <li><strong>頻譜比值計算：</strong>計算 $\log(P_g / L_g)$ 隨頻率 (0 ~ 10 Hz) 變化曲線。</li>
+            <li><strong>頻率分群判別：</strong>
+              <div style="color: var(--text-highlight); font-size: 0.88rem; margin-top: 0.25rem;">
+                • 低頻段 (&lt; 1-2 Hz)：兩者重疊度極高，難以區分。<br>
+                • <strong>高頻段 (&gt; 2-4 Hz 以上)：</strong>爆炸之 Pg 能量遠高於 Lg，$\log(P_g/L_g) &gt; 0$，與天然地震形成明確二分界！
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- 投影片對應 (11, 14, 15, 18, 19) -->
+      <div class="grid-3" style="margin-top: 2rem;">
+        <div class="slide-item" onclick="openLightbox('11.jpg', '爆炸事件常見的地震波', '展示震源 (Source)、受體 (Receiver)、地殼波導、Moho面、Pn, Pg/Sg 與 Lg 波多次反射路徑。')">
+          <div class="slide-img-box"><img src="11.jpg" alt="常見地震波"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 11</div>
+            <div class="slide-title">地殼波導與 Lg 波傳播機制圖解</div>
+            <div class="slide-filename">11.jpg</div>
+          </div>
+        </div>
+
+        <div class="slide-item" onclick="openLightbox('15.jpg', 'Pg vs. Lg 頻譜比法 - III', '說明 50% 重疊時間窗計算頻譜、疊加平均與傅立葉轉換的標準處理流程。')">
+          <div class="slide-img-box"><img src="15.jpg" alt="頻譜比法III"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 15</div>
+            <div class="slide-title">50% 重疊子視窗與頻譜疊加演算法</div>
+            <div class="slide-filename">15.jpg</div>
+          </div>
+        </div>
+
+        <div class="slide-item" onclick="openLightbox('19.jpg', 'Pg vs. Lg 頻譜比法 - VII', 'Taylor (1996) 與 Kim et al. (2007) 成果：Log(Pg/Lg) 隨頻率增加在爆炸與地震間呈現顯著二分群。')">
+          <div class="slide-img-box"><img src="19.jpg" alt="頻譜比法VII"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 19</div>
+            <div class="slide-title">Log(Pg/Lg) 高頻分群驗證圖</div>
+            <div class="slide-filename">19.jpg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第五部分：雷利表面波與地體構造之聚焦散焦 -->
+  <section class="content-section" id="rayleigh-waves">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fa-solid fa-mountain-sun"></i> Section 05</div>
+        <h2 class="section-title">五、雷利表面波與地體構造異質性</h2>
+        <p class="section-desc">2017 北韓核試引發之 20 秒雷利表面波分析，揭示日本海下方高速散焦與低速聚焦構造效應。</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-water"></i> 表面雷利波 (Rayleigh Wave) 濾波與群速</h3>
+          <p style="color: var(--text-muted); line-height: 1.8;">
+            對遠距地震儀記錄之長週期訊號，針對中心週期 <strong>$T = 20\text{ s}$ ($f_c = 0.05\text{ Hz}$)</strong> 進行高斯窄頻帶濾波，並計算希爾伯特轉換包絡線 (Envelope)。
+          </p>
+          <div class="formula-badge">
+            雷利波群速：<strong>U ≈ 3.35 km/s</strong><br>
+            波形特徵：逆行橢圓運動，震幅隨傳播距離幾何擴散與介質 Q 值衰減。
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.92rem;">
+            在 900 至 1,100 km 距離範圍內，測站記錄到的雷利波振幅呈現顯著的空間不均勻性。
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-bullseye"></i> 日本海地體構造：聚焦 vs 散焦</h3>
+          <p style="color: var(--text-muted); line-height: 1.8;">
+            Furumura et al. (2014) 與 Witek et al. (2014) 研究指出，震波震幅的異常起伏源自深部構造的速度差異：
+          </p>
+          <ul style="padding-left: 1.25rem; color: #ddd; line-height: 1.9; font-size: 0.95rem; margin-top: 0.5rem;">
+            <li><strong style="color: var(--blast-red);">低速異常區 (Low-velocity anomaly)：</strong>如同凸透鏡引發波前彎折，產生<strong>「能量聚焦 (Focusing)」</strong>，導致局部測站震幅異常暴增！</li>
+            <li><strong style="color: var(--p-wave);">高速異常區 (High-velocity anomaly)：</strong>波前發散，產生<strong>「能量散焦 (Defocusing)」</strong>，使得該方向之表面波振幅急劇衰退。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-top: 2rem;">
+        <div class="slide-item" onclick="openLightbox('20.jpg', '表面雷利波 (Surface Rayleigh Wave)', '原始波形、振幅頻譜 (fc=0.05 Hz, T=20s) 與 Tc=20 高斯濾波波形對照。')">
+          <div class="slide-img-box"><img src="20.jpg" alt="雷利波"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 20</div>
+            <div class="slide-title">20s 雷利波窄頻濾波處理流程</div>
+            <div class="slide-filename">20.jpg</div>
+          </div>
+        </div>
+
+        <div class="slide-item" onclick="openLightbox('21.jpg', '表面波振幅衰減關係式', '2017/09/03 核爆表面波群速 U=3.35 km/s 擬合線、包絡線與 900-1100 km 振幅分布。')">
+          <div class="slide-img-box"><img src="21.jpg" alt="衰減關係式"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 21</div>
+            <div class="slide-title">雷利表面波群速走時與包絡分析</div>
+            <div class="slide-filename">21.jpg</div>
+          </div>
+        </div>
+
+        <div class="slide-item" onclick="openLightbox('22.jpg', '雷利波振幅/速度與地體構造的關係', 'Furumura (2014) 與 Witek (2014)：日本海下方高速散焦與低速聚焦之群速二維投影圖。')">
+          <div class="slide-img-box"><img src="22.jpg" alt="地體構造關係"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 22</div>
+            <div class="slide-title">日本海地體構造聚焦與散焦現象</div>
+            <div class="slide-filename">22.jpg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第六部分：TAIGER 計畫與臺灣地下炸測實驗 -->
+  <section class="content-section" id="taiger">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fa-solid fa-hill-rockslide"></i> Section 06</div>
+        <h2 class="section-title">六、TAIGER 炸測實驗設計與資料分析</h2>
+        <p class="section-desc">TAiwan Integrated GEodynamic Research (2006-2009)：臺灣地體動力學海陸聯合震測與訊號處理品管。</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-compass-drafting"></i> 實驗設計與爆破參數</h3>
+          <p style="color: var(--text-muted); line-height: 1.8;">
+            TAIGER 計畫整合<strong>2008 年陸地炸測</strong>與<strong>2009 年海陸聯測</strong>，動用美國藍賽斯號 (RV Marcus Langseth) 空氣槍陣列，並在全臺布設數千顆 Texan (rt125) 高精度單通道地震儀。
+          </p>
+          <div style="margin-top: 1rem; font-size: 0.95rem; color: #ddd;">
+            <p><strong>• 測線規劃：</strong>北部測線 (N1, N2, N3/N3P, N4) 與南部橫貫測線 (S1, S2, S3, S3P, S4)。</p>
+            <p><strong>• 炸藥規格：</strong>當量介於 <strong>500 kg 至 3,000 kg</strong>，深鑽井封填引爆。</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-bolt"></i> 影響爆炸轉換為震波能量的關鍵因素</h3>
+          <ul style="padding-left: 1.25rem; color: #ddd; line-height: 1.9; font-size: 0.95rem;">
+            <li><strong>當量 (Yield)：</strong>炸藥量越大，釋放之總機械能與震波振幅呈系統性增長。</li>
+            <li><strong>爆炸深度 (Depth)：</strong>鑽井越深，上覆圍壓抑制氣體衝出地表，<strong>能量轉換率大幅提高</strong>。</li>
+            <li><strong>炸點周遭介質：</strong>花崗岩與岩鹽之剛性與聲阻抗高，能量傳遞效率遠高於鬆散沉積岩。</li>
+            <li><strong>炸藥與圍岩耦合程度：</strong>TAIGER 鑽井後填入<strong>角礫石緊密壓實</strong>，大幅減少空隙耗散。</li>
+          </ul>
+          <p style="font-size: 0.85rem; color: var(--blast-red); margin-top: 0.5rem;">
+            * 注意：爆炸釋放的大部分能量仍消耗於光、熱、大氣衝擊波及近孔圍岩粉碎破壞，僅少數比例轉換為彈性地震波 (Båth, 1979)。
+          </p>
+        </div>
+      </div>
+
+      <!-- 核心波行處理方法卡片 -->
+      <div class="grid-3" style="margin-top: 2rem;">
+        <div class="card">
+          <h4 style="color: var(--p-wave); font-size: 1.1rem; margin-bottom: 0.5rem;">
+            <i class="fa-solid fa-filter"></i> 儀器響應反褶積
+          </h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;">
+            透過反褶積 (Deconvolution) 去除檢波器頻率響應，將儀器原始數位讀數 (count) 還原為<strong>真實地面震動速度 (m/s)</strong>：
+            <br>
+            <span style="font-family: var(--font-mono); color: var(--text-highlight);">$z(\omega) = u(\omega) \cdot I(\omega)$</span>
+          </p>
+        </div>
+
+        <div class="card">
+          <h4 style="color: var(--s-wave); font-size: 1.1rem; margin-bottom: 0.5rem;">
+            <i class="fa-solid fa-chart-area"></i> 時頻分析 (Spectrogram)
+          </h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;">
+            比較不同震央距之波形與時頻圖，證實隨距離增加，<strong>高頻成分衰減極快</strong>，能量逐漸集中在較低頻段與晚到達之散射波群。
+          </p>
+        </div>
+
+        <div class="card">
+          <h4 style="color: var(--blast-red); font-size: 1.1rem; margin-bottom: 0.5rem;">
+            <i class="fa-solid fa-sliders"></i> 訊噪比窗與包絡線
+          </h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;">
+            劃定初動前背景雜訊窗與到達後訊號窗，精確計算 <strong>SNR (訊噪比)</strong>。針對 5 Hz 中心頻率施加高斯濾波並萃取包絡峰值。
+          </p>
+        </div>
+      </div>
+
+      <!-- 投影片對應 (24, 26, 27, 28, 29, 30) -->
+      <div class="grid-3" style="margin-top: 2rem;">
+        <div class="slide-item" onclick="openLightbox('24.jpg', 'TAIGER 實驗架構', '海陸聯測船隊 RV Marcus Langseth、空氣槍陣列與陸地鑽井裝藥施工實況。')">
+          <div class="slide-img-box"><img src="24.jpg" alt="TAIGER計畫"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 24</div>
+            <div class="slide-title">TAIGER 計畫海陸聯測現場紀錄</div>
+            <div class="slide-filename">24.jpg</div>
+          </div>
+        </div>
+
+        <div class="slide-item" onclick="openLightbox('26.jpg', '真實地面振動速度 (m/s)', '反褶積去除儀器響應之數學關係式與還原前後波形對比圖。')">
+          <div class="slide-img-box"><img src="26.jpg" alt="反褶積"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 26</div>
+            <div class="slide-title">儀器響應反褶積與地動速度還原</div>
+            <div class="slide-filename">26.jpg</div>
+          </div>
+        </div>
+
+        <div class="slide-item" onclick="openLightbox('29.jpg', '主頻高斯濾波與包絡線', '以 5 Hz 高斯濾波凸顯訊號峰值 (Signal Peak) 與背景噪訊峰值 (Noise Peak) 之走時關係。')">
+          <div class="slide-img-box"><img src="29.jpg" alt="高斯濾波"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 29</div>
+            <div class="slide-title">5 Hz 主頻濾波與震波包絡線分析</div>
+            <div class="slide-filename">29.jpg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第七部分：多重潛水波 (Multiple Diving Waves) -->
+  <section class="content-section" id="diving-waves">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fa-solid fa-water"></i> Section 07</div>
+        <h2 class="section-title">七、南部平原之謎——多重潛水波 (Multiple Diving Waves)</h2>
+        <p class="section-desc">南北測線 PGV 衰減之巨大差異：西部厚層沉積盆地陡峭速度梯度引發之反覆折射反射效應。</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-arrow-trend-down"></i> 南北測線對比的驚人差異</h3>
+          <p style="color: var(--text-muted); line-height: 1.8;">
+            分析各測站之垂直向最大地動速度 (PGV) 隨震央距衰減規律：
+          </p>
+          <ul style="padding-left: 1.25rem; color: #ddd; line-height: 1.9; font-size: 0.95rem; margin-top: 0.5rem;">
+            <li><strong>北部測線 (N1 ~ N4)：</strong>各爆破點 PGV 隨距離增加呈平順、單調線性遞減。</li>
+            <li><strong style="color: var(--blast-red);">南部測線 (S1 ~ S4)：</strong>在震央距 1 至 10 km 近距離範圍內，<strong>PGV 未快速衰減，反而維持在極高的異常振幅水準！</strong></li>
+          </ul>
+          <p style="color: var(--text-highlight); margin-top: 0.75rem; font-size: 0.9rem;">
+            這暗示西部平原淺層構造存在極為強烈的能量波導 (Waveguide) 或地層聚焦效應！
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-layer-group"></i> 陡峭速度梯度與海豚式彈跳跳躍</h3>
+          <p style="color: var(--text-muted); line-height: 1.8;">
+            Huang et al. (2013) 針對南部橫貫測線折合走時紀錄進行深入數值模擬：
+          </p>
+          <div class="formula-badge">
+            <strong>成因機制：</strong>西部平原淺層沉積物波速從地表低速隨深度急劇陡升至 <strong>4 km/s 以上</strong>，形成極端陡峭的速度梯度 (Steep Velocity Gradient)。
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.92rem;">
+            向下傳播的震波受連續折射向上彎曲回地表，抵達自由地表後再度反射向下鑽入，反覆彈跳形成 <strong>Multiple Diving Waves</strong>，在走時圖上分裂出多條平行弧形曲線！
+          </p>
+        </div>
+      </div>
+
+      <!-- 互動式多重潛水波射線彈跳模擬器 -->
+      <div class="interactive-panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <i class="fa-solid fa-water"></i> 互動模擬器：西部平原沉積盆地多重潛水波射線追蹤
+          </div>
+          <div class="control-group">
+            <button class="btn btn-primary" onclick="triggerDivingWaveSim()" style="padding: 0.4rem 1rem; font-size: 0.85rem;">
+              <i class="fa-solid fa-play"></i> 發射震波射線
+            </button>
+            <button class="toggle-btn" id="btn-toggle-gradient" onclick="toggleGradientMode()">
+              切換：陡峭梯度 (平原盆地)
+            </button>
+          </div>
+        </div>
+
+        <div class="simulator-canvas-container" style="height: 320px;">
+          <canvas id="diving-wave-canvas" class="sim-canvas"></canvas>
+        </div>
+
+        <div style="margin-top: 1rem; display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-mono); flex-wrap: wrap; gap: 0.5rem;">
+          <span><i class="fa-solid fa-info-circle" style="color: var(--seismic-accent);"></i> 射線隨深度向地表連續全折射回彎，抵達地表向下全反射</span>
+          <span id="gradient-status-label" style="color: var(--text-highlight);">當前模型：陡峭沉積物梯度 (dv/dz = 1.2 s⁻¹)</span>
+        </div>
+      </div>
+
+      <!-- 投影片對應 (33, 34, 35, 36) -->
+      <div class="grid-3" style="margin-top: 2rem;">
+        <div class="slide-item" onclick="openLightbox('33.jpg', '垂直向最大地動速度隨距離衰減關係', '南北測線對比：南部測線近距離紅框處維持異常高振幅，證實西部平原具有強烈波導效應。')">
+          <div class="slide-img-box"><img src="33.jpg" alt="PGV衰減對比"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 33</div>
+            <div class="slide-title">南北測線 PGV 隨距離衰減對比圖</div>
+            <div class="slide-filename">33.jpg</div>
+          </div>
+        </div>
+
+        <div class="slide-item" onclick="openLightbox('34.jpg', 'Multiple Diving Waves - I', 'Huang et al. (2013)：爆破點位於厚層沉積盆地，折合走時圖分裂出多條弧形走時曲線。')">
+          <div class="slide-img-box"><img src="34.jpg" alt="Diving Waves I"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 34</div>
+            <div class="slide-title">南部橫貫測線弧形走時曲線</div>
+            <div class="slide-filename">34.jpg</div>
+          </div>
+        </div>
+
+        <div class="slide-item" onclick="openLightbox('35.jpg', 'Multiple Diving Waves - II', '一維速度梯度剖面 (Steep Velocity Gradient) 與多重潛水波數值射線追蹤模擬。')">
+          <div class="slide-img-box"><img src="35.jpg" alt="Diving Waves II"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 35</div>
+            <div class="slide-title">陡峭速度梯度射線追蹤數值模擬</div>
+            <div class="slide-filename">35.jpg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第八部分：PGVh 衰減模型反演與 2014 高雄氣爆應用 -->
+  <section class="content-section" id="kaohsiung-case">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fa-solid fa-calculator"></i> Section 08</div>
+        <h2 class="section-title">八、PGVh 衰減關係式反演與 2014 高雄氣爆鑑識</h2>
+        <p class="section-desc">利用 Joyner &amp; Boore 經驗模型擬合岩盤爆破參數，成功反推推算出 2014 年高雄氣爆之區域地震規模為 ML = 2.38。</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-square-root-variable"></i> 經驗衰減模型與參數反演</h3>
+          <p style="color: var(--text-muted); line-height: 1.8;">
+            採用標準近地表強震動衰減函數形式 (Joyner &amp; Boore, 1981; Campbell, 1981)：
+          </p>
+          <div class="formula-badge">
+            <strong>$\log(PGV_h) = a \log(X) + b X + c M_L + d$</strong>
+            <div style="font-size: 0.9rem; color: #ffedd5; margin-top: 0.5rem;">
+              • 幾何擴散係數：<strong>a = -1.41</strong><br>
+              • 規模放大係數：<strong>c = 1.16</strong><br>
+              • 截距項：<strong>d = -6.63</strong>（非彈性衰減項 b 於近場常併入或簡化）
+            </div>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.92rem;">
+            <strong>模型品質檢驗：</strong>預測值與實際觀測值在雙對數圖上嚴格貼近對角線；PGV 殘差 (Residual) 呈現完美以 0 為中心的常態高斯分佈，證實無系統性偏差。
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-fire"></i> 2014/07/31 高雄氣爆法醫鑑識</h3>
+          <p style="color: var(--text-muted); line-height: 1.8;">
+            2014 年 7 月 31 日深夜高雄前鎮發生大規模地下丙烯管線爆燃事件。南部各強震測站 (KAU, SNJ, SGL, MASB, EASB, TWGB 等) 均記錄到清晰地震波初動。
+          </p>
+          <div style="background: rgba(45, 20, 15, 0.6); border: 1px solid var(--blast-red); border-radius: 8px; padding: 1.2rem; margin-top: 1rem;">
+            <p style="color: #ffeedb; font-size: 0.95rem; margin-bottom: 0.4rem;">
+              <i class="fa-solid fa-bullseye" style="color: var(--blast-red);"></i> <strong>反推鑑識結果：</strong>
+            </p>
+            <p style="font-size: 1.2rem; font-weight: 700; color: #fff; font-family: var(--font-mono);">
+              高雄氣爆等效區域規模：<span style="color: var(--text-highlight);">ML ≈ 2.38</span>
+            </p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.4rem;">
+              將各測站震央距 $X$ 與觀測地動速度 $PGV_h$ 帶入 TAIGER 建立之岩盤衰減公式，成功推算出此突發人為意外事件的精確釋放能量！
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 互動式高雄氣爆規模反演計算器 -->
+      <div class="interactive-panel" style="margin-top: 2.5rem;">
+        <div class="panel-header">
+          <div class="panel-title">
+            <i class="fa-solid fa-calculator"></i> 互動工具：PGVh 經驗衰減公式規模反演推算器
+          </div>
+          <div style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-mono);">
+            公式：log(PGVh) = -1.41·log(X) + 1.16·ML - 6.63
+          </div>
+        </div>
+
+        <div class="calculator-layout">
+          <div>
+            <div class="input-control">
+              <label><i class="fa-solid fa-ruler-horizontal"></i> 測站震央距 X (公里, km)：</label>
+              <div class="input-row">
+                <input type="range" class="range-slider" id="calc-range-dist" min="1" max="100" step="0.5" value="12" oninput="updateCalculator()">
+                <input type="text" class="num-display" id="calc-num-dist" value="12.0 km" readonly>
+              </div>
+            </div>
+
+            <div class="input-control">
+              <label><i class="fa-solid fa-gauge"></i> 觀測垂直向最大速度 PGVh (cm/s)：</label>
+              <div class="input-row">
+                <input type="range" class="range-slider" id="calc-range-pgv" min="0.0001" max="1.0" step="0.0005" value="0.0065" oninput="updateCalculator()">
+                <input type="text" class="num-display" id="calc-num-pgv" value="0.0065" readonly>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+              <button class="toggle-btn active" onclick="setPresetKaohsiung('SNJ')">帶入測站 SNJ (近場)</button>
+              <button class="toggle-btn" onclick="setPresetKaohsiung('SGL')">帶入測站 SGL (中場)</button>
+              <button class="toggle-btn" onclick="setPresetKaohsiung('TWGB')">帶入測站 TWGB (遠場)</button>
+            </div>
+          </div>
+
+          <div class="calc-result-box">
+            <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-family: var(--font-mono);">
+              反演推估區域地震規模 (Inverted ML)
+            </div>
+            <div class="result-mag-number" id="calc-result-mag">
+              2.38
+            </div>
+            <div style="color: var(--text-highlight); font-size: 0.95rem; font-weight: 600;" id="calc-result-comment">
+              吻合 2014 高雄氣爆事件官方估計規模 (ML 2.38)
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.75rem;">
+              計算式：ML = [log(PGVh) + 1.41·log(X) + 6.63] / 1.16
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 投影片對應 (37, 38, 39, 40) -->
+      <div class="grid-2" style="margin-top: 2rem;">
+        <div class="slide-item" onclick="openLightbox('37.jpg', 'PGVh 衰減關係式反演', '由 TAIGER 資料反演求得 a=-1.41, c=1.16, d=-6.63，並繪製 ML=1 至 ML=5 等值衰減線。')">
+          <div class="slide-img-box" style="height: 220px;"><img src="37.jpg" alt="衰減關係式反演"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 37</div>
+            <div class="slide-title">TAIGER 炸測 PGVh 參數反演迴歸圖</div>
+            <div class="slide-filename">37.jpg</div>
+          </div>
+        </div>
+
+        <div class="slide-item" onclick="openLightbox('40.jpg', '高雄氣爆事件 PGVh 衰減關係式應用', '2014 高雄氣爆波形紀錄 (KAU, SNJ, SGL) 與回歸線疊合，成功推估氣爆規模為 ML=2.38。')">
+          <div class="slide-img-box" style="height: 220px;"><img src="40.jpg" alt="高雄氣爆規模反演"></div>
+          <div class="slide-info">
+            <div class="slide-tag">Slide 40</div>
+            <div class="slide-title">高雄氣爆地震波形與規模 ML=2.38 估計</div>
+            <div class="slide-filename">40.jpg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第九部分：完整演講簡報全景圖庫 (All 33 Slides) -->
+  <section class="content-section" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fa-solid fa-photo-film"></i> Section 09</div>
+        <h2 class="section-title">九、演講投影片全景圖庫 (Full Slide Archive)</h2>
+        <p class="section-desc">完整收錄資料夾中 33 張高解析度簡報與現場紀錄，支援分類篩選、點擊放大與全螢幕高解析度燈箱導覽。</p>
+      </div>
+
+      <!-- 分類過濾按鈕 -->
+      <div class="gallery-filter-bar">
+        <button class="filter-btn active" onclick="filterGallery('all')">全部展示 (33)</button>
+        <button class="filter-btn" onclick="filterGallery('forensic')">法醫地震與監控</button>
+        <button class="filter-btn" onclick="filterGallery('nuclear')">核試爆 vs 地震辨識</button>
+        <button class="filter-btn" onclick="filterGallery('spectral')">Pg / Lg 頻譜比法</button>
+        <button class="filter-btn" onclick="filterGallery('surface')">雷利波與地體構造</button>
+        <button class="filter-btn" onclick="filterGallery('taiger')">TAIGER 炸測與潛水波</button>
+        <button class="filter-btn" onclick="filterGallery('attenuation')">衰減公式與高雄氣爆</button>
+      </div>
+
+      <!-- 投影片瀑布網格 -->
+      <div class="slides-grid" id="slides-container">
+        <!-- 由 JavaScript 動態完整生成 33 張投影片卡片 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 第十部分：核心結論與未來展望 -->
+  <section class="content-section" id="conclusions">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fa-solid fa-flag-checkered"></i> Section 10</div>
+        <h2 class="section-title">十、結論與研究展望 (Conclusions)</h2>
+        <p class="section-desc">梁文宗老師演講總結之六大核心科學結論與臺灣地震學未來研究課題。</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-list-check"></i> 演講六大核心結論 (Slide 41)</h3>
+          <ul style="padding-left: 1.25rem; color: #ddd; line-height: 1.9; font-size: 0.95rem;">
+            <li><strong>構造不均質性：</strong>2017 年北韓核試驗所產生之雷利波在相近距離下振幅呈現顯著空間差異，此現象可歸因於日本海下方地體構造的橫向不均質性（聚焦與散焦）。</li>
+            <li><strong>首座爆炸衰減式：</strong>利用 TAIGER 計畫岩盤測站地震波形資料，建立了首個適用於臺灣近地表爆炸事件之最大地動速度 (PGV) 衰減方程式。</li>
+            <li><strong>平原波導效應：</strong>西部平原地區所觀測到的 PGV 衰減特性與岩盤測站顯著不同，具有強烈的沉積盆地能量聚集與多重潛水波 (Multiple Diving Waves)。</li>
+            <li><strong>爆炸耦合效率：</strong>炸藥使用量與觀測規模 ($M_L$) 關係顯示各炸點效率不一，受埋深、介質圍岩與緊實耦合程度直接影響。</li>
+            <li><strong>高雄氣爆精準定奪：</strong>透過建立之衰減公式，成功推估出 2014 年高雄氣爆事件所對應之區域規模為 <strong>$M_L = 2.38$</strong>。</li>
+            <li><strong>平原新公式之需求：</strong>發生於平原厚層沉積物之近地表爆炸衰減模式，未來仍有待進一步建立完善。</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-graduation-cap"></i> 學生學習總結（林柏揚）</h3>
+          <p style="color: var(--text-muted); line-height: 1.8;">
+            這場演講讓我看見了地球物理學的巨大應用潛能——它不僅僅是學術殿堂裡推估莫氏面深度的純科學工具，更是國家安全、國際條約查證與刑事重大事故調查中無可替代的「物理法醫」。
+          </p>
+          <div class="formula-badge" style="margin-top: 1.25rem;">
+            「看似錯綜複雜的地震紀錄，只要扣緊震源物理機制與波傳動態，每一道微小的波動都是能被精確解碼的地層語言。」
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 1rem;">
+            未來若能結合稠密強震儀陣列與機器學習時頻辨識，必能為臺灣的災害鑑識與地震早期預警開創更多前沿應用！
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 燈箱視窗 (Lightbox Modal) -->
+  <div class="lightbox-modal" id="lightbox-modal" onclick="closeLightbox(event)">
+    <div class="lightbox-content-box" onclick="event.stopPropagation()">
+      <button class="lightbox-close-btn" onclick="closeLightbox()">&times;</button>
+      <button class="lightbox-nav-btn lightbox-prev" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="lightbox-nav-btn lightbox-next" onclick="nextSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+      
+      <img src="" alt="" class="lightbox-img" id="lightbox-img">
+      <div class="lightbox-caption" id="lightbox-caption">
+        <h4 id="lightbox-title">投影片標題</h4>
+        <p id="lightbox-desc">詳細圖說說明</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 頁尾 -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div style="font-size: 1.8rem; color: var(--seismic-accent); margin-bottom: 0.75rem;">
+        <i class="fa-solid fa-earth-americas"></i>
+      </div>
+      <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 0.5rem;">爆炸地震學與法醫地震學 專題網頁</h3>
+      <p style="font-size: 0.9rem; color: var(--text-muted);">
+        演講主講：中央研究院地球科學研究所 梁文宗 研究員 ｜ 心得撰寫：林柏揚（地生二 U11410015）
+      </p>
+
+      <div class="footer-links">
+        <a href="#hero"><i class="fa-solid fa-arrow-up"></i> 返回頂部</a>
+        <a href="#reflection"><i class="fa-solid fa-pen-nib"></i> 心得報告</a>
+        <a href="#interactive-simulator"><i class="fa-solid fa-sliders"></i> 震波模擬器</a>
+        <a href="#kaohsiung-case"><i class="fa-solid fa-calculator"></i> 氣爆反演</a>
+        <a href="#gallery"><i class="fa-regular fa-images"></i> 投影片庫</a>
+      </div>
+
+      <div class="copyright">
+        Designed for GitHub Pages Deployment ｜ 本網頁以 HTML5 Canvas、Web Audio API 與純純原生 JavaScript 構建 ｜ 2026
+      </div>
+    </div>
+  </footer>
+
+  <!-- 浮動快捷回頂按鈕 -->
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="回到頂部">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
+  <!-- ==========================================================================
+       JAVASCRIPT LOGIC - SEISMIC ENGINE, AUDIO SYNTH & INTERACTIVE SIMULATORS
+       ========================================================================== -->
+  <script>
+    /* ==========================================================================
+       1. 投影片全景數據庫 (All 33 Slides Data)
+       ========================================================================== */
+    const SLIDES_DATA = [
+      {
+        id: "螢幕擷取畫面 2026-11-24 113813.png",
+        category: "forensic",
+        title: "大氣與地體異常事件多重監測模型",
+        desc: "UCRL 經典三維剖面：涵蓋火山活動、大氣爆炸、礦場爆破、意外事故、機器噪訊、地震斷層、核子試爆、次聲波與水下聲學波導。",
+        tag: "監控總覽"
+      },
+      {
+        id: "螢幕擷取畫面 2026-11-24 113854.png",
+        category: "forensic",
+        title: "法醫地震學重大經典實例",
+        desc: "包含肯亞美國大使館恐攻 (1998)、庫斯克核潛艇爆炸 (2000)、新墨西哥瓦斯管線爆炸 (2000) 及南韓浦項地熱誘發地震 (2017)。",
+        tag: "法醫實例"
+      },
+      {
+        id: "7.jpg",
+        category: "nuclear",
+        title: "核試爆與天然地震的差異 - I",
+        desc: "mb vs Ms 規模圖分離度、區域 P/S 振幅比、震源深度與 Pg/Lg 頻率比值之系統性檢驗 (Kim, 2017)。",
+        tag: "判別準則"
+      },
+      {
+        id: "8.jpg",
+        category: "nuclear",
+        title: "核試爆與天然地震的差異 - II",
+        desc: "2017/09/03 北韓 mb 6.3 (Mw 5.2) 核試之柏克萊大學震源機制解：Hudson 偏離圖顯示高達 42% 等向膨脹分量 (ISO)。",
+        tag: "機制解反演"
+      },
+      {
+        id: "10.jpg",
+        category: "nuclear",
+        title: "北韓核試爆與地震波形資料庫",
+        desc: "北韓豐溪里 (Punggye-ri) 核試場地理位置與牡丹江 (MDJ)、臺灣 BATS、日本 F-net 及 GSN 全球測站網分布。",
+        tag: "測站陣列"
+      },
+      {
+        id: "11.jpg",
+        category: "spectral",
+        title: "爆炸事件常見的地震波與地殼波導",
+        desc: "展示震源 (Source)、受體 (Receiver)、地殼波導、Moho 面、Pn, Pg/Sg 與 Lg 波多次反射路徑。",
+        tag: "Lg波導"
+      },
+      {
+        id: "12.jpg",
+        category: "nuclear",
+        title: "牡丹江 (MDJ) 測站北韓核試波形記錄",
+        desc: "2006 至 2017 年北韓歷次核試 (mb 4.3 至 6.3) 之波形對比，Pn, Pg 與雷利表面波振幅隨當量顯著增長。",
+        tag: "核試波形"
+      },
+      {
+        id: "13.jpg",
+        category: "spectral",
+        title: "Pg vs. Lg 頻譜比法 - I",
+        desc: "IU.YAK 測站 (Dist=2303 km) 之垂直向 (BHZ)、徑向 (BHR) 與切向 (BHT) 三分量地震波紀錄。",
+        tag: "三分量記錄"
+      },
+      {
+        id: "14.jpg",
+        category: "spectral",
+        title: "Pg vs. Lg 頻譜比法 - II",
+        desc: "Lg 視速度 (0.25-5 Hz)：美國約 3.0-3.6 km/s、日本 2.8-3.5 km/s、中國 3.0-3.6 km/s 之走時窗設定。",
+        tag: "Lg視速度"
+      },
+      {
+        id: "15.jpg",
+        category: "spectral",
+        title: "Pg vs. Lg 頻譜比法 - III",
+        desc: "框出 Pg (25s) 與 Lg 時段，各段以 50% 重疊子視窗計算頻譜並疊加平均以抑制噪訊。",
+        tag: "50%重疊切片"
+      },
+      {
+        id: "16.jpg",
+        category: "spectral",
+        title: "Pg vs. Lg 頻譜比法 - IV",
+        desc: "IU.YAK 測站頻率 (0-8 Hz) vs 振幅頻譜衰減特性分析。",
+        tag: "振幅頻譜"
+      },
+      {
+        id: "17.jpg",
+        category: "spectral",
+        title: "Pg vs. Lg 頻譜比法 - V",
+        desc: "北韓核試事件 (Events) 與東亞各大測站 (MDJ, BJT, XAN, ENH, KMI 等) 之幾何空間分布圖。",
+        tag: "東亞測網"
+      },
+      {
+        id: "18.jpg",
+        category: "spectral",
+        title: "Pg vs. Lg 頻譜比法 - VI (噪訊影響)",
+        desc: "分析 SEO2, YSS, ENH, KMI 各測站之 Pg, Lg 與背景噪訊頻譜，評估信噪比對高頻判讀之影響。",
+        tag: "噪訊品管"
+      },
+      {
+        id: "19.jpg",
+        category: "spectral",
+        title: "Pg vs. Lg 頻譜比法 - VII (高頻分離)",
+        desc: "Taylor (1996) 與 Kim (2007)：Log(Pg/Lg) 隨頻率增加在爆破 (>0) 與天然地震 (<0) 間形成鮮明二分群。",
+        tag: "判據二分群"
+      },
+      {
+        id: "20.jpg",
+        category: "surface",
+        title: "表面雷利波 (Rayleigh Wave) 窄頻濾波",
+        desc: "針對中心週期 T=20s (fc=0.05 Hz) 之高斯濾波處理，凸顯長週期表面波振幅特性。",
+        tag: "高斯濾波"
+      },
+      {
+        id: "21.jpg",
+        category: "surface",
+        title: "表面波振幅衰減關係式",
+        desc: "2017/09/03 核爆雷利波群速 U=3.35 km/s 走時線、希爾伯特包絡線與 900-1100 km 振幅分布。",
+        tag: "群速分析"
+      },
+      {
+        id: "22.jpg",
+        category: "surface",
+        title: "雷利波 (20s) 振幅/速度與地體構造關係",
+        desc: "Furumura et al. (2014) 與 Witek et al. (2014)：日本海下方低速聚焦增幅與高速散焦衰減現象。",
+        tag: "聚焦散焦"
+      },
+      {
+        id: "24.jpg",
+        category: "taiger",
+        title: "TAIGER 計畫海陸聯合震測 (2006-2009)",
+        desc: "2008 年陸地鑽井炸測與 2009 年美國藍賽斯號 (RV Marcus Langseth) 空氣槍海陸聯測實況。",
+        tag: "TAIGER聯測"
+      },
+      {
+        id: "25.jpg",
+        category: "taiger",
+        title: "TAIGER 計畫 10 次炸測實驗分布",
+        desc: "全臺北部測線 (N1, N2, N3/N3P, N4) 與南部橫貫測線 (S1, S2, S3, S3P, S4) 炸點與密集檢波器陣列。",
+        tag: "十次炸測"
+      },
+      {
+        id: "26.jpg",
+        category: "taiger",
+        title: "真實地面振動速度 (m/s) 與儀器反褶積",
+        desc: "透過反褶積去除檢波器響應，將數位訊號 count 還原為真實地面振動物理量速度 (m/s)。",
+        tag: "儀器反褶積"
+      },
+      {
+        id: "27.jpg",
+        category: "taiger",
+        title: "地震波形的時頻圖分析 (Spectrogram)",
+        desc: "對比 14.7 km 與 50.1 km 測站時頻圖，證實隨距離拉長高頻迅速衰減、能量集中於低頻晚到達波群。",
+        tag: "時頻分析"
+      },
+      {
+        id: "28.jpg",
+        category: "taiger",
+        title: "資料品質檢驗：訊噪比 (SNR) 評估",
+        desc: "劃定初動到達前背景雜訊窗 (Noise window) 與訊號窗 (Signal window) 進行高品質品管篩選。",
+        tag: "SNR篩選"
+      },
+      {
+        id: "29.jpg",
+        category: "taiger",
+        title: "5 Hz 主頻高斯濾波與包絡線",
+        desc: "利用 5 Hz 高斯濾波精確提取訊號峰值 (Signal Peak) 與雜訊峰值 (Noise Peak) 之走時關係。",
+        tag: "包絡線提取"
+      },
+      {
+        id: "30.jpg",
+        category: "taiger",
+        title: "TAIGER 十次炸測爆破參數一覽",
+        desc: "統計各炸點炸藥量 (500 kg 至 3000 kg) 與中央氣象局 (CWB) 觀測之規模 ML 關係對照表。",
+        tag: "炸藥當量"
+      },
+      {
+        id: "31.jpg",
+        category: "taiger",
+        title: "影響爆炸轉換為震波能量的關鍵因素",
+        desc: "深入探討當量、深度、圍岩介質 (花崗岩/岩鹽高耦合) 與角礫石封填程度對震波效率之影響 (Båth, 1979)。",
+        tag: "能量轉換"
+      },
+      {
+        id: "32.jpg",
+        category: "attenuation",
+        title: "垂直向地表最大速度 PGVh 衰減模型",
+        desc: "以 1999 集集地震作為天然基準，比較 N3 (750kg) 與 N3P (3000kg) 爆破之雙對數線性衰減特徵。",
+        tag: "衰減基準"
+      },
+      {
+        id: "33.jpg",
+        category: "taiger",
+        title: "垂直向 PGV 隨距離衰減關係 (南北對比)",
+        desc: "北部測線平順遞減；南部測線在近距離 (西部平原) 出現維持極高振幅之聚集現象，揭露平原波導效應。",
+        tag: "南北測線差異"
+      },
+      {
+        id: "34.jpg",
+        category: "taiger",
+        title: "Multiple Diving Waves - I (南部橫貫測線)",
+        desc: "Huang et al. (2013)：爆破點位於厚層沉積盆地，折合走時紀錄分裂出多條向上彎曲的弧形走時曲線。",
+        tag: "潛水波紀錄"
+      },
+      {
+        id: "35.jpg",
+        category: "taiger",
+        title: "Multiple Diving Waves - II (速度梯度模擬)",
+        desc: "西部平原淺層極端陡峭速度梯度 (Steep Velocity Gradient) 引發震波連續折射向上彎曲與地表反射。",
+        tag: "陡峭梯度"
+      },
+      {
+        id: "36.jpg",
+        category: "taiger",
+        title: "Multiple Diving Waves - III (極淺層地震波形)",
+        desc: "CWA 強震測站 CHY031 實測紀錄：觀測到 P, PP, PPP 與 S, SS, SSS 多重反射潛水波特徵。",
+        tag: "實測反射波"
+      },
+      {
+        id: "37.jpg",
+        category: "attenuation",
+        title: "PGVh 衰減關係式反演",
+        desc: "TAIGER 資料回歸求得 a=-1.41, c=1.16, d=-6.63，並建立 ML=1 至 ML=5 等值衰減預測斜線。",
+        tag: "衰減反演"
+      },
+      {
+        id: "38.jpg",
+        category: "attenuation",
+        title: "PGVh 衰減關係式評估與殘差檢驗",
+        desc: "模型預測值 vs 觀測值緊密貼合 1:1 對角線，殘差 (Residual) 呈完美零偏向常態高斯分佈。",
+        tag: "殘差評估"
+      },
+      {
+        id: "39.jpg",
+        category: "attenuation",
+        title: "近地表爆炸衰減應用 - I (2014高雄氣爆)",
+        desc: "2014/07/31 高雄氣爆現場災情照片與南部強震觀測網 (KAU, SNJ, SGL 等) 測站空間分布圖。",
+        tag: "氣爆現場"
+      },
+      {
+        id: "40.jpg",
+        category: "attenuation",
+        title: "近地表爆炸衰減應用 - II (規模 ML=2.38)",
+        desc: "氣爆地震波形記錄與衰減方程式反推：成功推算 2014 高雄氣爆等效區域規模為 ML = 2.38！",
+        tag: "氣爆規模"
+      },
+      {
+        id: "41.jpg",
+        category: "forensic",
+        title: "結論與科學成果彙整 (Conclusions)",
+        desc: "總結日本海地體構造聚焦散焦、首個臺灣爆炸 PGV 衰減式、多重潛水波成因及高雄氣爆規模估計。",
+        tag: "演講總結"
+      }
+    ];
+
+    let currentSlideIndex = 0;
+    let filteredSlides = [...SLIDES_DATA];
+
+    /* ==========================================================================
+       2. 動態生成投影片圖庫
+       ========================================================================== */
+    function renderGallery(items) {
+      const container = document.getElementById('slides-container');
+      container.innerHTML = '';
+
+      items.forEach((slide, index) => {
+        const card = document.createElement('div');
+        card.className = 'slide-item';
+        card.onclick = () => openLightboxByIndex(index);
+
+        card.innerHTML = `
+          <div class="slide-img-box">
+            <img src="${slide.id}" alt="${slide.title}" loading="lazy">
+            <div class="slide-overlay-icon"><i class="fa-solid fa-expand"></i></div>
+          </div>
+          <div class="slide-info">
+            <div>
+              <div class="slide-tag">${slide.tag}</div>
+              <div class="slide-title">${slide.title}</div>
+            </div>
+            <div class="slide-filename">${slide.id}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterGallery(cat) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      if (cat === 'all') {
+        filteredSlides = [...SLIDES_DATA];
+      } else {
+        filteredSlides = SLIDES_DATA.filter(s => s.category === cat);
+      }
+      renderGallery(filteredSlides);
+    }
+
+    /* ==========================================================================
+       3. 燈箱 (Lightbox) 交互控制
+       ========================================================================== */
+    function openLightboxByIndex(idx) {
+      currentSlideIndex = idx;
+      updateLightboxContent();
+      const modal = document.getElementById('lightbox-modal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openLightbox(id, title, desc) {
+      const idx = filteredSlides.findIndex(s => s.id === id);
+      if (idx !== -1) {
+        openLightboxByIndex(idx);
+      } else {
+        document.getElementById('lightbox-img').src = id;
+        document.getElementById('lightbox-title').innerText = title;
+        document.getElementById('lightbox-desc').innerText = desc;
+        document.getElementById('lightbox-modal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeLightbox(e) {
+      document.getElementById('lightbox-modal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function nextSlide() {
+      currentSlideIndex = (currentSlideIndex + 1) % filteredSlides.length;
+      updateLightboxContent();
+    }
+
+    function prevSlide() {
+      currentSlideIndex = (currentSlideIndex - 1 + filteredSlides.length) % filteredSlides.length;
+      updateLightboxContent();
+    }
+
+    function updateLightboxContent() {
+      const item = filteredSlides[currentSlideIndex];
+      if (!item) return;
+      document.getElementById('lightbox-img').src = item.id;
+      document.getElementById('lightbox-title').innerText = item.title;
+      document.getElementById('lightbox-desc').innerText = item.desc;
+    }
+
+    // 鍵盤導航
+    window.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('lightbox-modal');
+      if (!modal.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    /* ==========================================================================
+       4. HERO 背景即時地震儀畫布 (Hero Seismograph Canvas)
+       ========================================================================== */
+    const heroCanvas = document.getElementById('seismic-hero-canvas');
+    const heroCtx = heroCanvas.getContext('2d');
+    let heroW, heroH;
+    let heroOffset = 0;
+
+    function resizeHeroCanvas() {
+      heroW = heroCanvas.width = heroCanvas.offsetWidth;
+      heroH = heroCanvas.height = heroCanvas.offsetHeight;
+    }
+    window.addEventListener('resize', resizeHeroCanvas);
+    resizeHeroCanvas();
+
+    // 地震儀多軌道繪製
+    function drawHeroSeismograph() {
+      heroCtx.clearRect(0, 0, heroW, heroH);
+
+      const tracks = 5;
+      const trackHeight = heroH / (tracks + 1);
+      heroOffset += 1.2;
+
+      for (let t = 1; t <= tracks; t++) {
+        const baseY = t * trackHeight;
+        heroCtx.beginPath();
+        heroCtx.lineWidth = 1.2;
+
+        let strokeColor = 'rgba(61, 53, 46, 0.45)';
+        if (t === 2) strokeColor = 'rgba(56, 189, 248, 0.55)'; // P波
+        if (t === 3) strokeColor = 'rgba(245, 158, 11, 0.65)'; // S波
+        if (t === 4) strokeColor = 'rgba(239, 68, 68, 0.55)'; // 爆破脈衝
+
+        heroCtx.strokeStyle = strokeColor;
+
+        for (let x = 0; x < heroW; x += 3) {
+          const sampleX = x + heroOffset * (t * 0.4 + 0.6);
+          
+          // 地震微動雜訊 (Noise floor)
+          let noise = Math.sin(sampleX * 0.05) * 3 + Math.sin(sampleX * 0.13) * 2 + (Math.random() - 0.5) * 2;
+          
+          // 周期性波群刺激 (Tremor bursts)
+          const burstPos = (sampleX % 600);
+          if (burstPos > 200 && burstPos < 380) {
+            const env = Math.sin((burstPos - 200) / 180 * Math.PI);
+            if (t === 2) {
+              noise += Math.sin(sampleX * 0.4) * 24 * env; // 高頻P波
+            } else if (t === 3) {
+              noise += Math.sin(sampleX * 0.18) * 38 * env; // 低頻強S波
+            } else if (t === 4) {
+              noise += Math.sin(sampleX * 0.6) * 45 * Math.exp(-(burstPos-200)*0.03); // 尖銳爆炸
+            }
+          }
+
+          if (x === 0) heroCtx.moveTo(x, baseY + noise);
+          else heroCtx.lineTo(x, baseY + noise);
+        }
+        heroCtx.stroke();
+      }
+
+      requestAnimationFrame(drawHeroSeismograph);
+    }
+    requestAnimationFrame(drawHeroSeismograph);
+
+    /* ==========================================================================
+       5. 互動模擬器：核試爆 vs 天然地震動態波形對比
+       ========================================================================== */
+    let currentSimMode = 'blast'; // 'blast' or 'quake'
+    const simCanvas = document.getElementById('sim-waveform-canvas');
+    const simCtx = simCanvas.getContext('2d');
+    let simW, simH;
+    let simTime = 0;
+
+    function resizeSimCanvas() {
+      simW = simCanvas.width = simCanvas.offsetWidth;
+      simH = simCanvas.height = simCanvas.offsetHeight;
+    }
+    window.addEventListener('resize', resizeSimCanvas);
+    resizeSimCanvas();
+
+    function setSimMode(mode) {
+      currentSimMode = mode;
+      document.getElementById('btn-mode-blast').classList.toggle('active', mode === 'blast');
+      document.getElementById('btn-mode-quake').classList.toggle('active', mode === 'quake');
+
+      if (mode === 'blast') {
+        document.getElementById('stat-p-motion').innerText = '100% 向上 (壓縮)';
+        document.getElementById('stat-p-motion').style.color = 'var(--p-wave)';
+        document.getElementById('stat-p-desc').innerText = '全向球對稱膨脹';
+
+        document.getElementById('stat-ps-ratio').innerText = '4.82 (P波極尖銳)';
+        document.getElementById('stat-ps-ratio').style.color = 'var(--blast-red)';
+        document.getElementById('stat-ps-desc').innerText = '剪切 S 波激發受抑制';
+
+        document.getElementById('stat-mb-ms').innerText = '+1.64';
+        document.getElementById('stat-iso').innerText = '42% (非雙力偶)';
+      } else {
+        document.getElementById('stat-p-motion').innerText = '四象限交錯 (推/拉)';
+        document.getElementById('stat-p-motion').style.color = 'var(--s-wave)';
+        document.getElementById('stat-p-desc').innerText = '雙力偶剪切滑移 (DC)';
+
+        document.getElementById('stat-ps-ratio').innerText = '0.38 (S波顯著優勢)';
+        document.getElementById('stat-ps-ratio').style.color = 'var(--earthquake-green)';
+        document.getElementById('stat-ps-desc').innerText = '強烈剪切能量釋放';
+
+        document.getElementById('stat-mb-ms').innerText = '-0.42';
+        document.getElementById('stat-iso').innerText = '0% (純剪切破裂)';
+      }
+    }
+
+    function renderSimWaveform() {
+      if (!simCtx || !simW) return;
+      simCtx.fillStyle = '#090807';
+      simCtx.fillRect(0, 0, simW, simH);
+
+      simTime += 0.04;
+      const centerY = simH / 2;
+
+      // 網格刻度線
+      simCtx.strokeStyle = 'rgba(61, 53, 46, 0.4)';
+      simCtx.lineWidth = 1;
+      for (let x = 0; x < simW; x += 60) {
+        simCtx.beginPath();
+        simCtx.moveTo(x, 0);
+        simCtx.lineTo(x, simH);
+        simCtx.stroke();
+      }
+      simCtx.beginPath();
+      simCtx.moveTo(0, centerY);
+      simCtx.lineTo(simW, centerY);
+      simCtx.strokeStyle = 'rgba(234, 88, 12, 0.3)';
+      simCtx.stroke();
+
+      // 波形繪製
+      simCtx.beginPath();
+      simCtx.lineWidth = 1.8;
+
+      if (currentSimMode === 'blast') {
+        simCtx.strokeStyle = '#ef4444'; // 爆炸緋紅
+      } else {
+        simCtx.strokeStyle = '#10b981'; // 地震青綠
+      }
+
+      const pArrival = simW * 0.25;
+      const sArrival = simW * 0.55;
+
+      for (let x = 0; x < simW; x++) {
+        let amp = (Math.random() - 0.5) * 3; // 背景雜訊
+
+        if (currentSimMode === 'blast') {
+          // 核試爆：P 波初動極大且向上，隨後迅速衰減，S 波微弱
+          if (x >= pArrival && x < sArrival) {
+            const t = (x - pArrival) / 18;
+            // 初始 P 波極尖銳向上
+            amp += Math.exp(-t * 0.3) * (Math.sin(t * 5) * 65 + 35 * Math.exp(-t * 1.2));
+          } else if (x >= sArrival) {
+            const ts = (x - sArrival) / 25;
+            amp += Math.exp(-ts * 0.15) * Math.sin(ts * 3.5) * 22; // 弱 S 波 / Lg
+          }
+        } else {
+          // 天然地震：P 波初至振幅較小，S 波到達時振幅劇烈增強
+          if (x >= pArrival && x < sArrival) {
+            const t = (x - pArrival) / 20;
+            amp += Math.sin(t * 3.8 + simTime) * 18 * (1 - Math.exp(-t * 0.5));
+          } else if (x >= sArrival) {
+            const ts = (x - sArrival) / 30;
+            amp += Math.sin(ts * 2.2 + simTime) * 80 * Math.exp(-ts * 0.12); // 強大 S 波
+          }
+        }
+
+        if (x === 0) simCtx.moveTo(x, centerY + amp);
+        else simCtx.lineTo(x, centerY + amp);
+      }
+      simCtx.stroke();
+
+      // 標註 P 波與 S 波初至線
+      simCtx.font = '11px JetBrains Mono';
+      simCtx.fillStyle = 'var(--p-wave)';
+      simCtx.fillText('▼ P 波初至 (P Arrival)', pArrival - 20, 25);
+      simCtx.beginPath();
+      simCtx.setLineDash([4, 4]);
+      simCtx.strokeStyle = 'var(--p-wave)';
+      simCtx.moveTo(pArrival, 30);
+      simCtx.lineTo(pArrival, simH);
+      simCtx.stroke();
+
+      simCtx.fillStyle = 'var(--s-wave)';
+      simCtx.fillText('▼ S 波初至 (S Arrival)', sArrival - 20, 25);
+      simCtx.strokeStyle = 'var(--s-wave)';
+      simCtx.beginPath();
+      simCtx.moveTo(sArrival, 30);
+      simCtx.lineTo(sArrival, simH);
+      simCtx.stroke();
+      simCtx.setLineDash([]);
+
+      requestAnimationFrame(renderSimWaveform);
+    }
+    requestAnimationFrame(renderSimWaveform);
+
+    /* ==========================================================================
+       6. 互動模擬器：多重潛水波 (Multiple Diving Waves) 射線追蹤
+       ========================================================================== */
+    const divingCanvas = document.getElementById('diving-wave-canvas');
+    const divingCtx = divingCanvas.getContext('2d');
+    let divingW, divingH;
+    let divingStep = 0;
+    let steepGradientMode = true;
+
+    function resizeDivingCanvas() {
+      divingW = divingCanvas.width = divingCanvas.offsetWidth;
+      divingH = divingCanvas.height = divingCanvas.offsetHeight;
+    }
+    window.addEventListener('resize', resizeDivingCanvas);
+    resizeDivingCanvas();
+
+    function triggerDivingWaveSim() {
+      divingStep = 0;
+    }
+
+    function toggleGradientMode() {
+      steepGradientMode = !steepGradientMode;
+      const btn = document.getElementById('btn-toggle-gradient');
+      const label = document.getElementById('gradient-status-label');
+      if (steepGradientMode) {
+        btn.innerText = '切換：均質地殼 (無波導)';
+        btn.classList.add('active');
+        label.innerText = '當前模型：陡峭沉積物梯度 (dv/dz = 1.2 s⁻¹，反覆折射反射)';
+      } else {
+        btn.innerText = '切換：陡峭梯度 (平原盆地)';
+        btn.classList.remove('active');
+        label.innerText = '當前模型：標準層狀地殼 (震波直線向下發散穿透)';
+      }
+      triggerDivingWaveSim();
+    }
+
+    function renderDivingWaves() {
+      if (!divingCtx || !divingW) return;
+      divingCtx.clearRect(0, 0, divingW, divingH);
+
+      divingStep += 0.8;
+
+      // 繪製沉積盆地地層截面背景
+      const gradient = divingCtx.createLinearGradient(0, 0, 0, divingH);
+      gradient.addColorStop(0, '#2d241d');
+      gradient.addColorStop(0.3, '#1c1713');
+      gradient.addColorStop(1, '#0c0a09');
+      divingCtx.fillStyle = gradient;
+      divingCtx.fillRect(0, 0, divingW, divingH);
+
+      // 地表線 (Surface)
+      divingCtx.strokeStyle = '#e07a38';
+      divingCtx.lineWidth = 2;
+      divingCtx.beginPath();
+      divingCtx.moveTo(0, 30);
+      divingCtx.lineTo(divingW, 30);
+      divingCtx.stroke();
+
+      divingCtx.font = '11px JetBrains Mono';
+      divingCtx.fillStyle = '#ffeedb';
+      divingCtx.fillText('自由地表 (Free Surface z=0)', 15, 22);
+      divingCtx.fillText('西部平原深層沉積盆地構造 (深度 > 5 km)', 15, divingH - 15);
+
+      // 震源點 (Source Shot Point S1)
+      const sourceX = 60;
+      const sourceY = 32;
+      divingCtx.fillStyle = '#ef4444';
+      divingCtx.beginPath();
+      divingCtx.arc(sourceX, sourceY, 6, 0, Math.PI * 2);
+      divingCtx.fill();
+      divingCtx.fillText('★ 炸測震源 S1', sourceX - 15, 52);
+
+      // 發射不同角度之射線 (Rays)
+      const rayCount = 8;
+      for (let r = 0; r < rayCount; r++) {
+        const takeOffAngle = 0.2 + (r / rayCount) * 0.9; // 放射角
+        divingCtx.beginPath();
+        divingCtx.lineWidth = 1.5;
+        divingCtx.strokeStyle = `hsla(${30 + r * 25}, 90%, 65%, 0.85)`;
+
+        let curX = sourceX;
+        let curY = sourceY;
+        let vx = Math.cos(takeOffAngle);
+        let vy = Math.sin(takeOffAngle);
+
+        divingCtx.moveTo(curX, curY);
+
+        for (let s = 0; s < divingStep; s++) {
+          curX += vx * 3;
+          curY += vy * 3;
+
+          if (steepGradientMode) {
+            // 陡峭速度梯度：隨深度增加，波速快速提高，連續折射向上彎曲 (Snell's Law)
+            vy -= 0.025; 
+
+            // 抵達地表自由面：向下全反射彈跳！(Multiple Diving Wave Bouncing)
+            if (curY <= 30 && vy < 0) {
+              curY = 30;
+              vy = -vy; // 地表反射向下再次潛入
+            }
+          }
+
+          divingCtx.lineTo(curX, curY);
+          if (curX > divingW || curY > divingH) break;
+        }
+        divingCtx.stroke();
+      }
+
+      requestAnimationFrame(renderDivingWaves);
+    }
+    requestAnimationFrame(renderDivingWaves);
+
+    /* ==========================================================================
+       7. 高雄氣爆規模反演計算器邏輯 (PGVh Attenuation Calculator)
+       ========================================================================== */
+    function updateCalculator() {
+      const dist = parseFloat(document.getElementById('calc-range-dist').value);
+      const pgv = parseFloat(document.getElementById('calc-range-pgv').value);
+
+      document.getElementById('calc-num-dist').value = dist.toFixed(1) + ' km';
+      document.getElementById('calc-num-pgv').value = pgv.toFixed(4);
+
+      // TAIGER 經驗衰減公式：log(PGVh) = -1.41 * log(X) + 1.16 * ML - 6.63
+      // 轉換成反演規模 ML:
+      // 1.16 * ML = log10(pgv) + 1.41 * log10(dist) + 6.63
+      // ML = [log10(pgv) + 1.41 * log10(dist) + 6.63] / 1.16
+      const logPGV = Math.log10(pgv);
+      const logX = Math.log10(dist);
+      const ML = (logPGV + 1.41 * logX + 6.63) / 1.16;
+
+      const resultBox = document.getElementById('calc-result-mag');
+      const commentBox = document.getElementById('calc-result-comment');
+
+      resultBox.innerText = ML.toFixed(2);
+
+      if (Math.abs(ML - 2.38) < 0.15) {
+        commentBox.innerText = '★ 高度吻合 2014 高雄氣爆事件推估規模 (ML 2.38)！';
+        commentBox.style.color = 'var(--text-highlight)';
+      } else if (ML < 2.0) {
+        commentBox.innerText = '小於典型大型管線氣爆規模，偏向單純小型爆破。';
+        commentBox.style.color = 'var(--p-wave)';
+      } else {
+        commentBox.innerText = '釋放能量較大，相當於極顯著的人工或誘發事件。';
+        commentBox.style.color = 'var(--blast-red)';
+      }
+    }
+
+    function setPresetKaohsiung(station) {
+      if (station === 'SNJ') {
+        document.getElementById('calc-range-dist').value = 7.2;
+        document.getElementById('calc-range-pgv').value = 0.0125;
+      } else if (station === 'SGL') {
+        document.getElementById('calc-range-dist').value = 14.5;
+        document.getElementById('calc-range-pgv').value = 0.0058;
+      } else if (station === 'TWGB') {
+        document.getElementById('calc-range-dist').value = 68.0;
+        document.getElementById('calc-range-pgv').value = 0.0006;
+      }
+      updateCalculator();
+    }
+
+    /* ==========================================================================
+       8. Web Audio API 合成地震波/衝擊波音效
+       ========================================================================== */
+    let audioCtx = null;
+    let audioEnabled = false;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    document.getElementById('audio-toggle-btn').addEventListener('click', () => {
+      initAudio();
+      audioEnabled = !audioEnabled;
+      const btn = document.getElementById('audio-toggle-btn');
+      if (audioEnabled) {
+        btn.innerHTML = '<i class="fa-solid fa-volume-high"></i> <span>音效已開啟</span>';
+        btn.style.background = 'var(--seismic-accent)';
+        btn.style.color = '#000';
+        playCurrentWaveAudio();
+      } else {
+        btn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i> <span>震動音效</span>';
+        btn.style.background = '';
+        btn.style.color = '';
+      }
+    });
+
+    function playCurrentWaveAudio() {
+      initAudio();
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime;
+
+      if (currentSimMode === 'blast') {
+        // 核爆/爆炸：極尖銳突發脈衝 + 迅速衰退低頻共振
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(140, now);
+        osc.frequency.exponentialRampToValueAtTime(30, now + 0.8);
+
+        gain.gain.setValueAtTime(0.7, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 1.2);
+      } else {
+        // 天然地震：深沉緩慢增強之深層轟鳴 (Low rumble)
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(45, now);
+        osc.frequency.linearRampToValueAtTime(65, now + 0.9);
+        osc.frequency.exponentialRampToValueAtTime(28, now + 2.2);
+
+        gain.gain.setValueAtTime(0.01, now);
+        gain.gain.linearRampToValueAtTime(0.6, now + 0.8);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 2.5);
+      }
+    }
+
+    /* ==========================================================================
+       9. 捲動進度條與導航監聽
+       ========================================================================== */
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollPos / docHeight) * 100;
+      document.getElementById('reading-progress').style.width = progress + '%';
+
+      // 回頂按鈕顯示控制
+      const backTop = document.getElementById('back-to-top');
+      if (scrollPos > 400) backTop.classList.add('show');
+      else backTop.classList.remove('show');
+    });
+
+    // 初始化渲染投影片圖庫與計算器
+    renderGallery(filteredSlides);
+    updateCalculator();
+  </script>
+</body>
+</html>
